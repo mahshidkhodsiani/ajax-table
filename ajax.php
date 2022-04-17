@@ -2,46 +2,6 @@
 require_once("./conection/conn.php");
 
 
-// echo json_encode($b);
-// echo "data from ajax.php";
-// echo '$_REQUEST : ';
-// print_r($_REQUEST);
-// die;
-
-
-
-// if(empty($name) || empty($last)){
-//     $a = array('status'=> false , "msg" => "fill completely");
-//     $b = json_encode($a);
-//     echo $b;
-// }else {
-//     $a = array('status'=> true , "msg" => "completed successfully");
-//     $b = json_encode($a);
-//     echo $b;
-// }
-
-// ini_set('display_errors', 1);
-
-// if(isset($_POST['aaa']) && $_POST['aaa']== "add"){
-//     $name = $_POST['name'];
-//     $last = $_POST['family'];
-//     $email = $_POST['email'];
-
-//     $sql = "INSERT INTO student (firstName,lastName,Email) VALUES ($name , $last , $email)";
-
-//     if($conn -> query($sql)){
-//         $b = "<p> your data successfully added </p>";
-//         $a = json_encode($b);
-//         echo $a;
-//     }else{
-//         $b = "<p> sorry a problem happend </p>";
-//         $a = json_encode($b);
-//         echo $a;
-//     }
-// }
-
-// echo $_REQUEST['fn'];
-// die;
 switch($_REQUEST['fn']){
     case "add":
         
@@ -57,13 +17,48 @@ switch($_REQUEST['fn']){
             $a = json_encode($b);
             echo $a;
         }else{
-            $b = array ("status"=> true , "msg"=>"your data successfully added");
+            $b = array ("status"=> false , "msg"=>"sorry a problem");
             $a = json_encode($b);
             echo $a;
         }
-            
-        
+         
     break;
+
+    case "del":
+        
+        $sql = "DELETE FROM student WHERE id={$_REQUEST['id']}";
+
+        if($conn->query($sql) == true){ 
+            
+            $b = array ("status"=> true , "msg"=>"your data successfully deleted" , "idm"=>$_REQUEST['id']);
+            $a = json_encode($b);
+            echo $a;
+        }else{
+            $b = array ("status"=> false , "msg"=>"sorry a problem " .$conn->error);
+            $a = json_encode($b);
+            echo $a;
+        }
+
+        break;
+
+    case "upd":
+        $name = $_REQUEST['name'];
+        $last = $_REQUEST['family'];
+        $email = $_REQUEST['email'];
+        $sql = "UPDATE student SET firstName='$name' , lastName ='$last' , Email='$email' WHERE id={$_REQUEST['id']} ";
+
+        if($conn->query($sql) == true){ 
+            $b = array ("status"=> true , "msg"=>"your data successfully updated"  );
+            $a = json_encode($b);
+            echo $a;
+        }else{
+            $b = array ("status"=> false , "msg"=>"sorry a problem " .$conn->error);
+            $a = json_encode($b);
+            echo $a;
+        }
+
+        break;
+
 }
 
 
