@@ -13,7 +13,10 @@ if ($result->num_rows > 0) {
     }
 }
 
-
+// echo '<pre>';
+// print_r($data);
+// echo '</pre>';
+// die;
 
 
 
@@ -57,10 +60,12 @@ if ($result->num_rows > 0) {
                     <th>edit</th>
                 </tr>
 
+                
                 <?php
+                $f=1;
                 foreach($data as $d){
                     echo "<tr id='{$d['id']}'>
-                            <td> {$d['id']} </td>
+                            <td> $f </td>
                             <td> {$d['firstName']} </td>
                             <td> {$d['lastName']} </td> 
                             <td> {$d['Email']} </td> 
@@ -68,7 +73,9 @@ if ($result->num_rows > 0) {
                             
                             <td> <button class='edit_id' data-edid='{$d['id']}'> edit </button> </td>       
                     </tr>";
+                    $f++;
                 }
+                
                 ?>
 
             </table>
@@ -107,7 +114,7 @@ if ($result->num_rows > 0) {
                         var ans = JSON.parse(result);
                      
                         if(ans.status == true){
-                            var res = "<tr>"
+                            var res = "<tr id='"+ans.idm+"'>"
                                         +"<td>"+ans.idm +"</td>"
                                         +"<td>"+formData.name +"</td>"
                                         +"<td>"+formData.family +"</td>"

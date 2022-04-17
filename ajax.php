@@ -22,7 +22,7 @@ switch($_REQUEST['fn']){
             echo $a;
         }
          
-    break;
+        break;
 
     case "del":
         
